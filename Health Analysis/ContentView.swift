@@ -9,6 +9,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    var body: some View {
+        TabView{
+            HeartForm().tabItem {
+                Image(systemName: "heart.fill").padding()
+                Text("Heart").padding()
+            }
+            DiabetesForm().tabItem {
+                Image(systemName: "largecircle.fill.circle").padding()
+                Text("Diabetes").padding()
+            }
+        }.accentColor(.red)
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+struct HeartForm: View {
     @State private var age = 35.0
     @State private var gender = 0
     let sex = ["Female", "Male"]
@@ -24,13 +45,12 @@ struct ContentView: View {
     @State private var electrocardiographic = "0.0"
     @State private var alertShown = false
     @State var result = ""
-    
     var body: some View {
-        VStack{
+        NavigationView {
             Form{
                 Section(header: Text("Age: \(Int(age))")){
                     Slider(value: $age, in: 1...100)
-                    .accentColor(.red)
+                        .accentColor(.red)
                 }
                 Section() {
                     Picker("Gender", selection: $gender) {
@@ -45,16 +65,20 @@ struct ContentView: View {
                         Text("\(chestpain)")
                     }
                 }
-                Section(header: Text("Blood Pressure: \(Int(cholestrol))")){
-                    Slider(value: $cholestrol, in: 90...570)
-                    .accentColor(.red)
+                Section(header: Text("Blood Pressure: \(Int(bloodpressure))")){
+                    Slider(value: $cholestrol, in: 90...210)
+                        .accentColor(.red)
                 }
-                Section(header: Text("Blood Pressure: \(String(sugar).capitalized)")){
+                Section(header: Text("Cholestrol: \(Int(cholestrol))")){
+                    Slider(value: $cholestrol, in: 110...570)
+                        .accentColor(.red)
+                }
+                Section(header: Text("Sugar: \(String(sugar).capitalized)")){
                     Toggle("Fasting blood sugar 120 mg/dl?", isOn: $sugar)
                 }
                 Section(header: Text("Maximum Heart Rate: \(Int(maximumheartrate))")){
                     Slider(value: $maximumheartrate, in: 70...210)
-                    .accentColor(.red)
+                        .accentColor(.red)
                 }
                 Section(header: Text("Exercise induced Agina: \(String(agina).capitalized)")){
                     Toggle("Do you have Exercise Induced Agina?", isOn: $agina)
@@ -76,24 +100,24 @@ struct ContentView: View {
                 HStack{
                     Spacer()
                     Button(action: {}, label: {
-                      Text("Result")
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.red)
-                        .cornerRadius(8)
+                        Text("Result")
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Color.red)
+                            .cornerRadius(8)
                     }).onTapGesture {
-                            let model = Heart()
-                            
-                            var sugar_conv = 0.0
+                        let model = Heart()
+                        
+                        var sugar_conv = 0.0
                         if self.sugar == true{
-                                sugar_conv = 1.0
-                            }
-                            
-                            var agina_conv = 0.0
+                            sugar_conv = 1.0
+                        }
+                        
+                        var agina_conv = 0.0
                         if self.agina == true{
-                                agina_conv = 1.0
-                            }
-                            
+                            agina_conv = 1.0
+                        }
+                        
                         do {
                             let prediction = try model.prediction(age: self.age, sex: Double(self.gender), cp: self.cholestrol, trestbps: self.bloodpressure, chol: self.cholestrol, fbs: sugar_conv, restecg: Double(self.electrocardiographic) ?? 0.0, thalach: self.maximumheartrate, exang: agina_conv, oldpeak: Double(self.oldpeak) ?? 0.0, slope: Double(self.slope) ?? 0.0, ca: Double(self.ca) ?? 0.0)
                             print(prediction.target)
@@ -105,19 +129,74 @@ struct ContentView: View {
                             self.alertShown = true
                         } catch {
                             print("Error")
-                            }
+                        }
                     }.alert(isPresented: $alertShown) { () -> Alert in
                         Alert(title: Text("Your Result"), message: Text("\(self.result)"), dismissButton: .default(Text("OK")))
                     }
                     Spacer()
                 }
-            }
+            }.navigationBarTitle("Heart")
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+struct DiabetesForm: View {
+    @State private var age = 35.0
+    @State private var bloodpressure = 65.0
+    @State private var pregnancies = 0.0
+    @State private var glucose = 100.0
+    @State private var skin = 5.0
+    @State private var insulin = 42.0
+    @State private var bmi = ""
+    @State private var diabetespedigree = ""
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Form{
+                    Section(header: Text("Age: \(Int(age))")){
+                        Slider(value: $age, in: 1...100)
+                            .accentColor(.red)
+                    }
+                    Section(header: Text("Blood Pressure: \(Int(bloodpressure))")){
+                        Slider(value: $bloodpressure, in: 0...130)
+                            .accentColor(.red)
+                    }
+                    Section(header: Text("Pregnancies: \(Int(pregnancies))")){
+                        Slider(value: $pregnancies, in: 0...20)
+                            .accentColor(.red)
+                    }
+                    Section(header: Text("Glucose: \(Int(glucose))")){
+                        Slider(value: $glucose, in: 0...200)
+                            .accentColor(.red)
+                    }
+                    Section(header: Text("Skin Thickness: \(Int(skin))")){
+                        Slider(value: $skin, in: 0...100)
+                            .accentColor(.red)
+                    }
+                    Section(header: Text("Insulin: \(Int(insulin))")){
+                        Slider(value: $insulin, in: 0...850)
+                            .accentColor(.red)
+                    }
+                    Section(header: Text("Your Body Mass Index:")){
+                        TextField("Enter Your Result", text: $bmi).keyboardType(.decimalPad)
+                    }
+                    Section(header: Text("Diabetes Pedigree Function:")){
+                        TextField("Enter Your Result", text: $diabetespedigree).keyboardType(.decimalPad)
+                    }
+                    HStack {
+                        Spacer()
+                        Button(action: {}, label: {
+                            Text("Result")
+                                .padding()
+                                .foregroundColor(.white)
+                                .background(Color.red)
+                                .cornerRadius(8)
+                        })
+                        Spacer()
+                    }
+                }.navigationBarTitle("Diabetes")
+            }
+        }
     }
 }
