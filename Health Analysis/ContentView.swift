@@ -66,7 +66,7 @@ struct HeartForm: View {
                     }
                 }
                 Section(header: Text("Blood Pressure: \(Int(bloodpressure))")){
-                    Slider(value: $cholestrol, in: 90...210)
+                    Slider(value: $bloodpressure, in: 90...210)
                         .accentColor(.red)
                 }
                 Section(header: Text("Cholestrol: \(Int(cholestrol))")){
@@ -147,8 +147,10 @@ struct DiabetesForm: View {
     @State private var glucose = 100.0
     @State private var skin = 5.0
     @State private var insulin = 42.0
-    @State private var bmi = ""
-    @State private var diabetespedigree = ""
+    @State private var bmi = "0.0"
+    @State private var diabetespedigree = "0.0"
+    @State private var alertShown = false
+    @State private var result = ""
     
     var body: some View {
         NavigationView {
@@ -186,13 +188,33 @@ struct DiabetesForm: View {
                     }
                     HStack {
                         Spacer()
-                        Button(action: {}, label: {
+                        Button(action: {
+                            let model = Diabetes()
+                            
+                            do{
+                                let prediction = try model.prediction(Pregnancies: self.pregnancies, Glucose: self.glucose, BloodPressure: self.bloodpressure, SkinThickness: self.skin, Insulin: self.insulin, BMI: Double(self.bmi) ?? 0.0, DiabetesPedigreeFunction: Double(self.diabetespedigree) ?? 0.0, Age: self.age)
+                                print(prediction.Outcome)
+                                if prediction.Outcome == 1{
+                                    self.result = "You are susceptible to heart disease"
+                                }else{
+                                    self.result = "You are fine"
+                                }
+                                self.alertShown = true
+                            }
+                            catch{
+                                let result = "Error"
+                                print(result)
+                            }
+                            
+                        }, label: {
                             Text("Result")
                                 .padding()
                                 .foregroundColor(.white)
                                 .background(Color.red)
                                 .cornerRadius(8)
-                        })
+                        }).alert(isPresented: $alertShown) { () -> Alert in
+                            Alert(title: Text("Your Result"), message: Text("\(self.result)"), dismissButton: .default(Text("OK")))
+                        }
                         Spacer()
                     }
                 }.navigationBarTitle("Diabetes")

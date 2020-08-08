@@ -14,7 +14,6 @@
 		2EB6A3C524D813CC002E71EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB6A3C424D813CC002E71EF /* Assets.xcassets */; };
 		2EB6A3C824D813CC002E71EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB6A3C724D813CC002E71EF /* Preview Assets.xcassets */; };
 		2EB6A3CB24D813CC002E71EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB6A3C924D813CC002E71EF /* LaunchScreen.storyboard */; };
-		2EB6A3D324D820D7002E71EF /* Analysis-Heart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6A3D224D820D7002E71EF /* Analysis-Heart.swift */; };
 		2EB6A3D724D82192002E71EF /* Heart.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6A3D624D82192002E71EF /* Heart.mlmodel */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		2EB6A3C724D813CC002E71EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2EB6A3CA24D813CC002E71EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EB6A3CC24D813CC002E71EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2EB6A3D224D820D7002E71EF /* Analysis-Heart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Analysis-Heart.swift"; sourceTree = "<group>"; };
 		2EB6A3D624D82192002E71EF /* Heart.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Heart.mlmodel; path = ../../Health/Heart.mlproj/Models/Heart.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,7 +65,6 @@
 				2EB6A3BE24D813C9002E71EF /* AppDelegate.swift */,
 				2EB6A3C024D813C9002E71EF /* SceneDelegate.swift */,
 				2EB6A3C224D813C9002E71EF /* ContentView.swift */,
-				2EB6A3D224D820D7002E71EF /* Analysis-Heart.swift */,
 				2EB6A3C424D813CC002E71EF /* Assets.xcassets */,
 				2EB6A3C924D813CC002E71EF /* LaunchScreen.storyboard */,
 				2EB6A3CC24D813CC002E71EF /* Info.plist */,
@@ -155,7 +152,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EB6A3D324D820D7002E71EF /* Analysis-Heart.swift in Sources */,
 				2E96056D24D91E69009093A6 /* Diabetes.mlmodel in Sources */,
 				2EB6A3BF24D813C9002E71EF /* AppDelegate.swift in Sources */,
 				2EB6A3C124D813C9002E71EF /* SceneDelegate.swift in Sources */,
