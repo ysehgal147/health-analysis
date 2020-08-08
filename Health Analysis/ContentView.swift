@@ -195,7 +195,7 @@ struct DiabetesForm: View {
                                 let prediction = try model.prediction(Pregnancies: self.pregnancies, Glucose: self.glucose, BloodPressure: self.bloodpressure, SkinThickness: self.skin, Insulin: self.insulin, BMI: Double(self.bmi) ?? 0.0, DiabetesPedigreeFunction: Double(self.diabetespedigree) ?? 0.0, Age: self.age)
                                 print(prediction.Outcome)
                                 if prediction.Outcome == 1{
-                                    self.result = "You are susceptible to heart disease"
+                                    self.result = "You are susceptible to Diabetes"
                                 }else{
                                     self.result = "You are fine"
                                 }
